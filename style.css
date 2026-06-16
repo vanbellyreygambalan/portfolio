@@ -201,12 +201,58 @@ section {
   margin-bottom: 6px;
 }
  
-.exp h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.exp h3 { 
+    font-size: 22px; font-weight: 800; margin-bottom: 4px; 
+}
  
-.exp .company { font-style: italic; margin-bottom: 12px; }
+.exp .company { 
+    font-style: italic; margin-bottom: 12px; 
+}
  
-.exp p { font-size: 15px; color: #333; }
- 
+.exp p {
+     font-size: 15px; color: #333;
+}
+
+  .contact{
+    text-align:center
+}
+  .contact .section-heading{
+    margin-bottom:24px
+}
+  .contact .lead{
+    font-size:20px;max-width:600px;margin:0 auto 40px;color:#333
+}
+  .contact-links{
+    display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:40px
+}
+  .contact-links a{
+    border-bottom:1px solid #000;padding-bottom:4px
+}
+  .contact-links a:hover{
+    opacity:.6
+}
+
+  .btn{
+    display:inline-block;padding:16px 32px;font-size:14px;letter-spacing:2px;text-transform:uppercase;border:2px solid #000;background:#fff;color:#000;cursor:pointer;transition:.2s;font-weight:700
+}
+
+  .btn:hover{
+    background:#000;color:#fff
+}
+  .btn.primary{
+    background:#000;color:#fff
+}
+  .btn.primary:hover{
+    background:#fff;color:#000
+}
+  .about-actions{
+    margin-top:32px;display:flex;gap:16px;flex-wrap:wrap
+}
+
+.resume{
+    display:none
+}
+
 
 @media(max-width:768px){
     .nav ul{
@@ -233,3 +279,85 @@ section {
         padding-top:100px
     }
 }
+
+.resume-render {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #000;
+  padding: 18mm;
+  background: #fff;
+}
+
+@media print{
+    @page{
+        size:A4;margin:18mm
+    }
+
+    header,section,footer{
+    display:none !important
+    }
+
+    body{
+        background:#fff;color:#000
+    }
+
+    .resume{
+        display:block;font-family:Georgia,'Times New Roman',serif;color:#000;max-width:none;padding:0
+    }
+
+    .resume .resume-header{
+        display:flex;align-items:center;gap:20px;border-bottom:2px solid #000;padding-bottom:14px;margin-bottom:20px
+    }
+
+    .resume .resume-header img{
+        width:100px;height:100px;border:2px solid #000;object-fit:cover;border-radius:0
+    }
+
+    .resume .resume-header .header-text{
+        flex:1;text-align:center
+    }
+
+    .resume .resume-header h1{
+        font-size:32px;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px
+    }
+
+    .resume .resume-header .meta{
+        font-size:12px;letter-spacing:1px
+    }
+
+    .resume h2{
+        font-size:14px;text-transform:uppercase;letter-spacing:3px;border-bottom:1px solid #000;padding-bottom:4px;margin:18px 0 10px
+    }
+
+    .resume .row{
+        margin-bottom:12px
+    }
+
+    .resume .row .top{
+        display:flex;justify-content:space-between;font-weight:bold;font-size:13px
+    }
+
+    .resume .row .sub{
+        font-style:italic;font-size:12px;margin-bottom:4px
+    }
+
+    .resume p,.resume li{
+        font-size:12px;line-height:1.5
+    }
+
+    .resume ul{
+        padding-left:18px
+    }
+
+    .resume .two-col{
+        display:grid;grid-template-columns:1fr 1fr;gap:24px
+    }
+
+    .resume .skills-list{
+        display:flex;flex-wrap:wrap;gap:6px
+    }
+
+    .resume .skills-list span{
+        border:1px solid #000;padding:2px 8px;font-size:11px
+    }
+
+  }

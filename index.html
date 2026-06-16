@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.all.min.js"></script>
     
     <title>Portfolio</title>
 </head>
@@ -19,7 +21,7 @@
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#experience">Experience</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li><a href="#" onclick="downloadCV(event)">Resume</a></li>
+                        <li><a href="#" class="resume-link">Resume</a></li>
                     </ul>
                 </nav>
             </div> 
@@ -62,9 +64,8 @@
                 <div class="project">
                     <div class="num">01</div>
                     <h3>File Management System</h3>
-                    <p>A production-grade platform built from the ground up to secure and organize digital assets for the School Governance and Operations Division (SGOD) under DepEd Surigao del Sur. 
-                        As the sole developer responsible for this system, I used Laravel to architect a robust backend capable of handling complex office workflows. 
-                        My implementation features recursive database mapping for nested directories, secure file streaming through Laravel's Storage engine, and custom middleware to protect sensitive administrative files.</p>
+                    <p>A secure, production-ready system built from scratch to digitize and centralize administrative files for the DepEd Surigao del Sur (SGOD) office. 
+                        Features recursive database mapping for infinitely nested folders, secure file streaming to block unauthorized direct links, and custom middleware access controls.</p>
                     <div class="tags">
                         <span class="tag">Laravel</span>
                         <span class="tag">PHP</span>
@@ -73,15 +74,14 @@
                 </div>
                   <div class="project">
                     <div class="num">02</div>
-                    <h3>TesDesk: An AI Driven Registration and Verification System using Gemini 3.5</h3>
-                    <p>An intelligent, full-stack web application engineered as my undergraduate thesis project to automate and streamline student onboarding for TESDA. 
-                        Built entirely using Laravel, the platform eliminates manual processing bottlenecks and prevents document fraud through automated, real-time prerequisite screening.
-                        The core verification engine leverages Gemini AI as a multimodal OCR system to extract structured text directly from uploaded official documents (such as Birth Certificates) within the web interface. 
-                        To guarantee absolute data integrity, I implemented the Levenshtein Distance algorithm to programmatically calculate similarity metrics, comparing user-submitted form entries against the AI-extracted document data to instantly deliver an automated compliance verdict</p>
+                    <h3>TesDesk</h3>
+                    <p>An intelligent, full-stack web application that automates student onboarding and registration workflows for TESDA.
+                       Integrates Gemini AI as a multimodal OCR engine to parse text from uploaded certificates, and utilizes the Levenshtein Distance algorithm to programmatically verify applicant data integrity.</p>
                     <div class="tags">
                         <span class="tag">Laravel</span>
                         <span class="tag">PHP</span>
                         <span class="tag">MySQL</span>
+                        <span class="tag">Gemini</span>
                     </div>
                 </div>
             </div>
@@ -103,6 +103,67 @@
     </div>
   </div>
 </section>
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">— Get in Touch</div>
+    <h2 class="section-heading">Contact Me</h2>
+    <p class="lead">Have a project in mind, an opportunity, or just want to say hi? My inbox is always open.</p>
+    <a class="btn primary" href="mailto:vanbellyrey@gmail.com">vanbellyrey@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://github.com/vanbellyreygambalan">GitHub</a>
+      <a href="https://www.linkedin.com/in/van-belly-rey-gambalan-987313417/">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<div class="resume" id="resume">
+  <div class="resume-header">
+    <div class="header-text">
+      <h1>Van Belly Rey Gambalan</h1>
+      <div class="meta">Designer &amp; Developer · vanbellyrey@gmail.com · +63 9300748861 · yourname.com</div>
+    </div>
+  </div>
+
+  <h2>Profile</h2>
+  <p>I specialize in web and mobile development, focusing on a precise stack: Laravel for scalable backend engineering and Flutter/Dart for responsive, modern client applications.
+      I prefer keeping my development workflow efficient and focused. I thrive on diving deep into API architectures, handling secure data synchronization, and bringing practical, functional applications to life.</p>
+  <h2>Experience</h2>
+  <div class="row">
+    <div class="top"><span>Internship</span><span>2025</span></div>
+    <div class="sub">Department of Education (DepEd) · Surigao del Sur</div>
+    <ul>
+        <li>Sole developer of the Web-Based File Management System for the SGOD office.</li>
+        <li>Engineered recursive database mapping for nested directories and secure file streaming.</li>
+        <li>Implemented custom middleware to protect sensitive administrative assets.</li>
+
+    </ul>
+  </div>
+
+  <h2>Education</h2>
+  <div class="row">
+    <div class="top"><span>Bachelor of Science in Computer Science</span><span>2022 — 2026</span></div>
+    <div class="sub">North Eastern Mindanao State University</div>
+  </div>
+
+  <h2>Skills</h2>
+  <div class="skills-list">
+    <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Dart</span>
+    <span>Laravel</span><span>UI/UX</span><span>Flutter</span>
+  </div>
+
+  <h2>Selected Projects</h2>
+  <ul>
+    <li><strong>File Management System</strong> — A secure, production-ready system built from scratch to digitize and centralize administrative files for the DepEd Surigao del Sur (SGOD) office. Features recursive database mapping for infinitely nested folders, 
+      secure file streaming to block unauthorized direct links, and custom middleware access controls.</li>
+    <li><strong>Tesdesk</strong> — An intelligent, full-stack web application that automates student onboarding and registration workflows for TESDA. 
+      Integrates Gemini AI as a multimodal OCR engine to parse text from uploaded certificates, 
+      and utilizes the Levenshtein Distance algorithm to programmatically verify applicant data integrity.</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>Email: vanbellyrey@gmail.com · Phone: +63 9300748861 · Web: yourname.com · LinkedIn: Van Belly Rey Gambalan</p>
+</div>
 
 </body>
+<script src="script.js"></script>
 </html>
