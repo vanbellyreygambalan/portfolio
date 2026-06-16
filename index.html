@@ -26,27 +26,51 @@
         </div>
     </header>
     <section id="about">
-        <div class="container">
-            <div class="section-title">About</div>
-            <h2 class="section-heading">Description</h2>
+  <div class="container">
+    <div class="section-title">— About</div>
+    <h2 class="section-heading">Description</h2>
+    <div class="about-grid">
+
+      <div>
+        <img src="assets/me.jpg" alt="Van Belly Rey Gambalan" class="avatar-img"/>
+      </div>
+
+      <div>
+        <p>Hi — I'm <strong>Van Belly Rey Gambalan</strong>, I specialize in web and mobile development, focusing on a precise stack: Laravel for scalable backend engineering and Flutter/Dart for responsive, modern client applications.</p>
+        <p>I prefer keeping my development workflow efficient and focused. I thrive on diving deep into API architectures, handling secure data synchronization, and bringing practical, functional applications to life.</p>
+        <div class="skills">
+          <span class="skill">HTML / CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Dart</span>
+          <span class="skill">Laravel</span>
+          <span class="skill">UI / UX</span>
+          <span class="skill">Flutter</span>
         </div>
-        <div>
-            <p>Hi — I'm <strong>Van Belly Rey</strong>,I specialize in web and mobile development, 
-                focusing on a precise stack: Laravel for scalable backend engineering and Flutter/Dart for responsive, modern client applications. 
-                I prefer keeping my development workflow efficient and focused. I thrive on diving deep into API architectures, 
-                handling secure data synchronization, and bringing practical, functional applications to life
-            <div class="skills">
-                <span class="skill">HTML / CSS</span>
-                <span class="skill">JavaScript</span>
-                <span class="skill">React</span>
-                <span class="skill">Figma</span>
-                <span class="skill">UI / UX</span>
-                <span class="skill">Branding</span>
-                <span class="skill">Tailwind</span>
-            </div>
-            <div class="about-actions">
-                <button class="btn primary" onclick="downloadCV()">Download CV</button>
-                <a class="btn" href="#projects">View Projects</a>
+        <div class="about-actions">
+          <button class="btn primary" onclick="downloadCV()">Download CV</button>
+          <a class="btn" href="#projects">View Projects</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">Selected Works</div>
+            <h2 class="section-heading">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <div class="num">01</div>
+                    <h3>File Management System</h3>
+                    <p>A production-grade platform built from the ground up to secure and organize digital assets for the School Governance and Operations Division (SGOD) under DepEd Surigao del Sur. 
+                        As the sole developer responsible for this system, I used Laravel to architect a robust backend capable of handling complex office workflows. 
+                        My implementation features recursive database mapping for nested directories, secure file streaming through Laravel's Storage engine, and custom middleware to protect sensitive administrative files.</p>
+                    <div class="tags">
+                        <span class="tag">Laravel</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
