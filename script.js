@@ -87,7 +87,7 @@ function downloadCV(e) {
     pdf.setFontSize(10);
     pdf.setFont('helvetica', 'normal');
     pdf.setTextColor(80, 80, 80);
-    pdf.text('Web & Mobile Developer  ·  vanbellyrey@gmail.com  ·  +63 9300748861', pageWidth / 2, y, { align: 'center' });
+    pdf.text('Web & Mobile Developer  ·  vanbellyrey@gmail.com  ·  +63 9300748861  ·  https://vangambalan.netlify.app/', pageWidth / 2, y, { align: 'center' });
     y += 4;
     pdf.setDrawColor(0);
     pdf.line(margin, y, pageWidth - margin, y);
@@ -146,7 +146,7 @@ function downloadCV(e) {
     });
 
     sectionTitle('Contact');
-    addText('Email: vanbellyrey@gmail.com  ·  Phone: +63 9300748861  ·  LinkedIn: Van Belly Rey Gambalan', 10);
+    addText('Email: vanbellyrey@gmail.com  ·  Phone: +63 9300748861  ·  Web: https://vangambalan.netlify.app/  ·  LinkedIn: Van Belly Rey Gambalan', 10);
 
     pdf.save('Van_Belly_Rey_Gambalan_CV.pdf');
 
