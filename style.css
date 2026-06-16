@@ -172,6 +172,42 @@ section {
     font-size: 12px; letter-spacing: 2px; opacity: .6; margin-bottom: 8px; 
 }
 
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  border-left: 2px solid #000;
+}
+ 
+.exp { position: relative; padding-bottom: 48px; }
+ 
+.exp:last-child { padding-bottom: 0; }
+ 
+.exp::before {
+  content: "";
+  position: absolute;
+  left: -41px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 50%;
+}
+ 
+.exp .year {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+ 
+.exp h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+ 
+.exp .company { font-style: italic; margin-bottom: 12px; }
+ 
+.exp p { font-size: 15px; color: #333; }
+ 
+
 @media(max-width:768px){
     .nav ul{
         display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:24px;border-bottom:1px solid #000;gap:20px
