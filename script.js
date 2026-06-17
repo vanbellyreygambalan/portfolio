@@ -162,3 +162,212 @@ function downloadCV(e) {
     });
   });
 }
+
+const projectsData = {
+  1: {
+    num: "01",
+    title: "File Management System",
+    tags: ["Laravel", "PHP", "MySQL"],
+    items: [
+      {
+        image: "assets/projects/fms-tree.jpg",
+        caption: "Recursive folder tree",
+        description: "The sidebar renders folders at any depth by walking the adjacency list in the database instead of hardcoding levels. Each folder lazy-loads its children on expand, so the tree stays fast even with thousands of nested directories.",
+        language: "PHP",
+        code: `public function getDescendants(Folder $folder)
+{
+    return $folder->children()
+        ->with('children')
+        ->get();
+}`
+      },
+      {
+        image: "assets/projects/fms-upload.jpg",
+        caption: "Secure upload & streaming",
+        description: "Uploaded files never get a public URL. Every download request passes through a controller that checks the requester's role against the folder's permission rules before streaming bytes back.",
+        language: "PHP",
+        code: `public function download(File $file)
+{
+    abort_unless($file->folder->isAccessibleBy(auth()->user()), 403);
+
+    return response()->stream(function () use ($file) {
+        echo Storage::get($file->path);
+    });
+}`
+      }
+    ]
+  },
+  2: {
+    num: "02",
+    title: "TesDesk",
+    tags: ["Laravel", "PHP", "MySQL", "Gemini"],
+    items: [
+      {
+        image: "assets/projects/tesdesk-ocr.jpg",
+        caption: "Gemini OCR extraction",
+        description: "Uploaded certificates are sent to Gemini as a multimodal prompt that returns structured JSON — name, school, date, credential number — removing manual transcription.",
+        language: "PHP",
+        code: `$response = Gemini::generativeModel('gemini-1.5-flash')
+    ->generateContent([$certificateImage, $extractionPrompt]);
+
+$fields = json_decode($response->text(), true);`
+      },
+      {
+        image: "assets/projects/tesdesk-verify.jpg",
+        caption: "Levenshtein verification",
+        description: "Submitted form values are compared against the OCR output. Anything beyond a small edit-distance threshold is flagged for manual review instead of silently accepted.",
+        language: "PHP",
+        code: `function isMatch(string $submitted, string $extracted, int $threshold = 2): bool
+{
+    return levenshtein(
+        strtolower($submitted),
+        strtolower($extracted)
+    ) <= $threshold;
+}`
+      }
+    ]
+  }
+};
+
+let currentProjectId = null;
+let currentIndex = 0;
+
+const overlay = document.getElementById('modalOverlay');
+const closeBtn = document.getElementById('modalCloseBtn');
+const copyBtn = document.getElementById('copyBtn');
+const prevBtn = document.getElementById('prevSlide');
+const nextBtn = document.getElementById('nextSlide');
+let lastFocused = null;
+
+function openModal(id) {
+  const data = projectsData[id];
+  if (!data) return;
+
+  currentProjectId = id;
+  currentIndex = 0;
+
+  document.getElementById('modalNum').textContent = data.num;
+  document.getElementById('modalTitle').textContent = data.title;
+
+  const tagsWrap = document.getElementById('modalTags');
+  tagsWrap.innerHTML = '';
+  data.tags.forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'tag';
+    span.textContent = tag;
+    tagsWrap.appendChild(span);
+  });
+
+  renderDots(data.items.length);
+  renderSlide();
+
+  lastFocused = document.activeElement;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  closeBtn.focus();
+}
+
+function renderDots(count) {
+  const dotsWrap = document.getElementById('slideDots');
+  dotsWrap.innerHTML = '';
+  dotsWrap.style.display = count > 1 ? 'flex' : 'none';
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('button');
+    dot.setAttribute('aria-label', `Go to screenshot ${i + 1}`);
+    dot.addEventListener('click', () => { currentIndex = i; renderSlide(); });
+    dotsWrap.appendChild(dot);
+  }
+}
+
+function renderSlide() {
+  const data = projectsData[currentProjectId];
+  const item = data.items[currentIndex];
+
+  document.getElementById('modalCaption').textContent = item.caption || '';
+  document.getElementById('modalDescription').textContent = item.description;
+  document.getElementById('modalLang').textContent = item.language;
+  document.getElementById('modalCode').textContent = item.code;
+
+  const img = document.getElementById('modalImage');
+  const placeholder = document.getElementById('modalImagePlaceholder');
+  if (item.image) {
+    img.src = item.image;
+    img.alt = item.caption || data.title;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    placeholder.style.display = 'block';
+  }
+
+  document.getElementById('slideCounter').textContent = `${currentIndex + 1} / ${data.items.length}`;
+
+  const showArrows = data.items.length > 1;
+  prevBtn.style.display = showArrows ? 'flex' : 'none';
+  nextBtn.style.display = showArrows ? 'flex' : 'none';
+
+  document.querySelectorAll('#slideDots button').forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIndex);
+  });
+}
+
+function closeModal() {
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+  if (lastFocused) lastFocused.focus();
+}
+
+function goPrev() {
+  const total = projectsData[currentProjectId].items.length;
+  currentIndex = (currentIndex - 1 + total) % total;
+  renderSlide();
+}
+
+function goNext() {
+  const total = projectsData[currentProjectId].items.length;
+  currentIndex = (currentIndex + 1) % total;
+  renderSlide();
+}
+
+document.querySelectorAll('.project').forEach(card => {
+  card.addEventListener('click', () => openModal(card.dataset.project));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openModal(card.dataset.project);
+    }
+  });
+});
+
+closeBtn.addEventListener('click', closeModal);
+prevBtn.addEventListener('click', goPrev);
+nextBtn.addEventListener('click', goNext);
+
+overlay.addEventListener('click', e => {
+  if (e.target === overlay) closeModal();
+});
+
+document.addEventListener('keydown', e => {
+  if (!overlay.classList.contains('active')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') goPrev();
+  if (e.key === 'ArrowRight') goNext();
+});
+
+copyBtn.addEventListener('click', () => {
+  const code = document.getElementById('modalCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    copyBtn.textContent = 'Copied!';
+    setTimeout(() => (copyBtn.textContent = 'Copy'), 1500);
+  });
+});
+
+const backToTopBtn = document.getElementById('backToTop');
+if (backToTopBtn) {
+  window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
