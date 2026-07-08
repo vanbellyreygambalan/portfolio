@@ -10,6 +10,7 @@
     <title>Portfolio</title>
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
     <header>
         <div class="nav">
             <div class="nav-inner">
@@ -36,15 +37,15 @@
     </header>
     <section id="about">
   <div class="container">
-    <div class="section-title">— About</div>
-    <h2 class="section-heading">Description</h2>
+    <div class="section-title reveal">— About</div>
+    <h2 class="section-heading reveal">Description</h2>
     <div class="about-grid">
 
-      <div>
+      <div class="reveal">
         <img src="assets/me.jpg" alt="Van Belly Rey Gambalan" class="avatar-img"/>
       </div>
 
-      <div>
+      <div class="reveal">
         <p>Hi — I'm <strong>Van Belly Rey Gambalan</strong>, I specialize in web and mobile development, focusing on a precise stack: Laravel for scalable backend engineering and Flutter/Dart for responsive, modern client applications.</p>
         <p>I prefer keeping my development workflow efficient and focused. I thrive on diving deep into API architectures, handling secure data synchronization, and bringing practical, functional applications to life.</p>
         <div class="skills">
@@ -65,8 +66,8 @@
 </section>
     <section id="projects">
         <div class="container">
-            <div class="section-title">Selected Works</div>
-            <h2 class="section-heading">My Projects</h2>
+            <div class="section-title reveal">Selected Works</div>
+            <h2 class="section-heading reveal">My Projects</h2>
             <div class="projects-grid">
                 <div class="project reveal" data-project="1" tabindex="0" role="button" aria-haspopup="dialog">
                     <div class="num">01</div>
@@ -128,8 +129,8 @@
 </div>
     <section id="experience">
   <div class="container">
-    <div class="section-title">— Career</div>
-    <h2 class="section-heading">Experience</h2>
+    <div class="section-title reveal">— Career</div>
+    <h2 class="section-heading reveal">Experience</h2>
     <div class="timeline">
       <div class="exp reveal">
         <div class="year">2025</div>
@@ -144,8 +145,8 @@
 </section>
 <section id="education">
   <div class="container">
-    <div class="section-title">— Background</div>
-    <h2 class="section-heading">Education</h2>
+    <div class="section-title reveal">— Background</div>
+    <h2 class="section-heading reveal">Education</h2>
     <div class="timeline">
       <div class="exp reveal">
         <div class="year">2022 — 2026</div>
@@ -162,11 +163,11 @@
 </section>
 <section id="contact" class="contact">
   <div class="container">
-    <div class="section-title">— Get in Touch</div>
-    <h2 class="section-heading">Contact Me</h2>
-    <p class="lead">Have a project in mind, an opportunity, or just want to say hi? My inbox is always open.</p>
-    <a class="btn primary" href="mailto:vanbellyrey@gmail.com">vanbellyrey@gmail.com</a>
-    <div class="contact-links">
+    <div class="section-title reveal">— Get in Touch</div>
+    <h2 class="section-heading reveal">Contact Me</h2>
+    <p class="lead reveal">Have a project in mind, an opportunity, or just want to say hi? My inbox is always open.</p>
+    <a class="btn primary reveal" href="mailto:vanbellyrey@gmail.com">vanbellyrey@gmail.com</a>
+    <div class="contact-links reveal">
       <a href="https://github.com/vanbellyreygambalan">GitHub</a>
       <a href="https://www.linkedin.com/in/van-belly-rey-gambalan-987313417/">LinkedIn</a>
     </div>
@@ -225,23 +226,50 @@
 <button id="backToTop" class="back-to-top" aria-label="Scroll to top">↑</button>
 <script src="script.js"></script>
 <script>
-  // Scroll-reveal: fades/lifts elements in as they enter the viewport.
+  // Scroll-reveal: fades/lifts elements in as they enter the viewport,
+  // staggering siblings within the same section for a "wave" effect.
   // Self-contained and additive — does not touch anything in script.js.
   (function () {
     var targets = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window) || !targets.length) {
+    if (!targets.length) return;
+
+    // Stagger: elements sharing a parent get an increasing delay.
+    var groups = new Map();
+    targets.forEach(function (el) {
+      var parent = el.parentElement;
+      var i = groups.has(parent) ? groups.get(parent) : 0;
+      el.style.setProperty('--reveal-delay', Math.min(i, 5) * 90 + 'ms');
+      groups.set(parent, i + 1);
+    });
+
+    if (!('IntersectionObserver' in window)) {
       targets.forEach(function (el) { el.classList.add('in-view'); });
-      return;
+    } else {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      targets.forEach(function (el) { observer.observe(el); });
     }
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    targets.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Scroll progress bar: fills across the top as the page is scrolled.
+  (function () {
+    var bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    function update() {
+      var doc = document.documentElement;
+      var scrollable = doc.scrollHeight - doc.clientHeight;
+      var pct = scrollable > 0 ? (doc.scrollTop / scrollable) * 100 : 0;
+      bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 </html>
