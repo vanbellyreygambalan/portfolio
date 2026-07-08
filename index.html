@@ -26,6 +26,7 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#experience">Experience</a></li>
+                        <li><a href="#education">Education</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="#" class="resume-link">Resume</a></li>
                     </ul>
@@ -67,7 +68,7 @@
             <div class="section-title">Selected Works</div>
             <h2 class="section-heading">My Projects</h2>
             <div class="projects-grid">
-                <div class="project" data-project="1" tabindex="0" role="button" aria-haspopup="dialog">
+                <div class="project reveal" data-project="1" tabindex="0" role="button" aria-haspopup="dialog">
                     <div class="num">01</div>
                     <h3>File Management System</h3>
                     <p>A secure, production-ready system built from scratch to digitize and centralize administrative files for the DepEd Surigao del Sur (SGOD) office. 
@@ -78,7 +79,7 @@
                         <span class="tag">MySQL</span>
                     </div>
                 </div>
-                  <div class="project" data-project="1" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="project reveal" data-project="1" tabindex="0" role="button" aria-haspopup="dialog">
                     <div class="num">02</div>
                     <h3>TesDesk</h3>
                     <p>An intelligent, full-stack web application that automates student onboarding and registration workflows for TESDA.
@@ -130,13 +131,31 @@
     <div class="section-title">— Career</div>
     <h2 class="section-heading">Experience</h2>
     <div class="timeline">
-      <div class="exp">
+      <div class="exp reveal">
         <div class="year">2025</div>
         <h3>Internship</h3>
         <div class="company">Department of Education (DepEd) · Surigao del Sur</div>
         <p>Architected and developed a production-grade Web-Based File Management System for the School Governance and Operations Division (SGOD). 
             Engineered a robust Laravel backend utilizing recursive database mapping for nested directories, secure file streaming through the framework's Storage engine, 
             and custom middleware to protect sensitive administrative assets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="education">
+  <div class="container">
+    <div class="section-title">— Background</div>
+    <h2 class="section-heading">Education</h2>
+    <div class="timeline">
+      <div class="exp reveal">
+        <div class="year">2022 — 2026</div>
+        <h3>Bachelor of Science in Computer Science</h3>
+        <div class="company degree">North Eastern Mindanao State University</div>
+        <div class="edu-tags">
+          <span>Software Engineering</span>
+          <span>Database Systems</span>
+          <span>Mobile Development</span>
+        </div>
       </div>
     </div>
   </div>
@@ -205,4 +224,24 @@
 </body>
 <button id="backToTop" class="back-to-top" aria-label="Scroll to top">↑</button>
 <script src="script.js"></script>
+<script>
+  // Scroll-reveal: fades/lifts elements in as they enter the viewport.
+  // Self-contained and additive — does not touch anything in script.js.
+  (function () {
+    var targets = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !targets.length) {
+      targets.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    targets.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
 </html>

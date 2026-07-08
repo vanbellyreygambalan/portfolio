@@ -213,6 +213,24 @@ section {
      font-size: 15px; color: #333;
 }
 
+/* Education section reuses the timeline/.exp language from Experience
+   so it reads as one family instead of a bolted-on block */
+#education .exp .degree {
+  font-style: italic; margin-bottom: 12px;
+}
+
+#education .exp .edu-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+}
+
+#education .exp .edu-tags span {
+  font-size: 11px;
+  border: 1px solid #000;
+  padding: 4px 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
   .contact{
     text-align:center
 }
@@ -534,3 +552,17 @@ section {
 [data-theme="dark"] .btn.primary:hover{background:var(--bg);color:var(--fg)}
 [data-theme="dark"] .back-to-top{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 [data-theme="dark"] .back-to-top:hover{background:var(--bg);color:var(--fg)}
+
+/* --- Scroll reveal (progressive enhancement, no layout shift) --- */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.reveal.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
